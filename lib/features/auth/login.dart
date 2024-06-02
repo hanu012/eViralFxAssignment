@@ -4,13 +4,19 @@ import 'package:assignment/utils/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final LoginController controller = Get.put(LoginController());
+  bool isPass = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor:  MyColors.white,
+        backgroundColor: MyColors.white,
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -28,10 +34,9 @@ class LoginScreen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                          color:  MyColors.white,
+                          color: MyColors.white,
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color:  MyColors.purple1),
+                          border: Border.all(color: MyColors.purple1),
                           boxShadow: [
                             BoxShadow(
                                 color: MyColors.purple,
@@ -46,26 +51,33 @@ class LoginScreen extends StatelessWidget {
                                 border: Border(
                                     bottom: BorderSide(
                                         color:
-                                        Color.fromRGBO(143, 148, 251, 1)))),
+                                            Color.fromRGBO(143, 148, 251, 1)))),
                             child: TextField(
                               controller: controller.mobileController,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  hintText:MyStrings.mobileNo,
+                                  hintText: MyStrings.mobileNo,
                                   hintStyle:
-                                  TextStyle(color: MyColors.grey700)),
+                                      TextStyle(color: MyColors.grey700)),
                             ),
                           ),
                           Container(
                             padding: EdgeInsets.all(8.0),
                             child: TextField(
                               controller: controller.passController,
-                              obscureText: true,
+                              obscureText: !isPass,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  suffixIcon: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          isPass = !isPass;
+                                        });
+                                      },
+                                      child: Icon(!isPass?Icons.visibility_off:Icons.visibility_sharp)),
                                   hintText: MyStrings.pass,
                                   hintStyle:
-                                  TextStyle(color: MyColors.grey700)),
+                                      TextStyle(color: MyColors.grey700)),
                             ),
                           )
                         ],
@@ -83,7 +95,7 @@ class LoginScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             gradient: LinearGradient(colors: [
-                             MyColors.purple,
+                              MyColors.purple,
                               MyColors.purple1,
                             ])),
                         child: Center(

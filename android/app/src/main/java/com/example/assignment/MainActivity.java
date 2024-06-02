@@ -1,4 +1,4 @@
-package com.example.assignment;
+package com.assignment.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 
